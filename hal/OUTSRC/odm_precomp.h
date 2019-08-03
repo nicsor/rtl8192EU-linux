@@ -21,6 +21,10 @@
 #ifndef	__ODM_PRECOMP_H__
 #define __ODM_PRECOMP_H__
 
+#include <drv_conf.h>
+#include <basic_types.h>
+#include <osdep_service.h>
+
 #include "odm_types.h"
 
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)

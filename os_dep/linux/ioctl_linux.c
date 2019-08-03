@@ -10393,9 +10393,10 @@ static int rtw_mp_read_reg(struct net_device *dev,
 						   j++;
 					  }
 					  if ( data[i] != '\0' )
+					  {
 					 	 tmp[j] = data[i];
-					 	
-					  	 j++;
+					  }
+					  j++;
 				}
 				pch = tmp;		
 				DBG_871X("pch=%s",pch);
@@ -10626,7 +10627,7 @@ static int rtw_mp_start(struct net_device *dev,
 		GetThermalMeter(padapter, &thermal);
 		printk("%s ### REG_C80:0x%08x,REG_C88:0x%08x ,thermal:0x%02x####\n",__FUNCTION__,
 			rtw_read32(padapter,0xc80),rtw_read32(padapter,0xc88),thermal);
-	}	
+	}
 	return 0;
 }
 

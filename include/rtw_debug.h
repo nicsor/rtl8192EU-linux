@@ -184,7 +184,9 @@ extern void rtl871x_cedbg(const char *fmt, ...);
 	#define _seqdump(sel, fmt, arg...) _dbgdump(fmt, ##arg)
 #elif defined PLATFORM_LINUX
 	#define _dbgdump printk
-	#define _seqdump seq_printf
+	#define FIRST_ARG_(N, ...) N
+	#define FIRST_ARG(args) FIRST_ARG_ args
+	#define _seqdump(...) ({int retval; seq_printf (__VA_ARGS__); retval = seq_has_overflowed(FIRST_ARG((__VA_ARGS__))); retval;})
 #elif defined PLATFORM_FREEBSD
 	#define _dbgdump printf
 	#define _seqdump(sel, fmt, arg...) _dbgdump(fmt, ##arg)

@@ -333,6 +333,27 @@ int rtw_android_pno_enable(struct net_device *net, int pno_enable) {
 }
 #endif //CONFIG_PNO_SUPPORT
 
+static char toupper2(char character)
+{
+    if(character >='a' && character<='z')
+    {
+        character = character + 0x20;
+    }
+
+    return character;
+}
+
+static int strnicmp(const char *a, const char *b, int len) {
+  int ca, cb;
+  do {
+     ca = (unsigned char) *a++;
+     cb = (unsigned char) *b++;
+     ca = toupper2(ca);
+     cb = toupper2(cb);
+   } while (ca == cb && ca != '\0' && (--len));
+   return ca - cb;
+}
+
 int rtw_android_cmdstr_to_num(char *cmdstr)
 {
 	int cmd_num;
@@ -763,7 +784,7 @@ int rtw_android_priv_cmd(struct net_device *net, struct ifreq *ifr, int cmd)
 		{
 #ifdef CONFIG_LPS
 			u8 dtim;
-			u8 *ptr = priv_cmd.buf;
+			u8 *ptr =  compat_ptr(priv_cmd.buf);
 			
 			ptr += 9;//string command length of  "SET_DTIM";
 
